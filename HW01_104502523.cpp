@@ -71,7 +71,20 @@ void polynomials_differential(polynomials *p)
 /* output polynomials                   */
 void output_polynomials(polynomials *p)
 {
-
+    struct polynomial *curr;
+    for(int i = 0; i < p->length; i++){
+        curr = &(p->terms[i]);
+	if(curr->coef > 0 && i != 0) printf("+");
+	if(curr->exp != 0){
+	    if(curr->coef > 1 || curr->coef < -1) printf("%d", curr->coef);
+	    else if(curr->coef == -1) printf("-");
+	    printf("x");
+	    if(curr->exp > 1) printf("^%d", curr->exp);
+	}else{
+	    printf("%d", curr->coef);
+	}
+    }
+    printf("\n");
 }
 
 int main()
