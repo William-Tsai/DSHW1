@@ -65,7 +65,12 @@ void save_polynomials(char *polynomial,polynomials *p)
 /* do differential of input polynomials */
 void polynomials_differential(polynomials *p)
 {
-
+    struct polynomial *curr;
+    for(int i = 0; i < p->length; i++){
+        curr = &(p->terms[i]);
+	curr->coef = curr->coef * curr->exp;
+	curr->exp--;
+    }
 }
 
 /* output polynomials                   */
@@ -74,6 +79,7 @@ void output_polynomials(polynomials *p)
     struct polynomial *curr;
     for(int i = 0; i < p->length; i++){
         curr = &(p->terms[i]);
+	if(curr->coef == 0) continue;
 	if(curr->coef > 0 && i != 0) printf("+");
 	if(curr->exp != 0){
 	    if(curr->coef > 1 || curr->coef < -1) printf("%d", curr->coef);
@@ -84,7 +90,6 @@ void output_polynomials(polynomials *p)
 	    printf("%d", curr->coef);
 	}
     }
-    printf("\n");
 }
 
 int main()
